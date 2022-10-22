@@ -1,0 +1,34 @@
+<script type="module">
+    import { createApp } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js'
+    createApp({
+        data() {
+            return {
+                message: 'Hello Vue!',
+                seen: true,
+                list: ["milk", "coffee", "water"]
+            }
+        },
+        methods:{
+            Weather:weather
+        }
+    }).mount('#app')
+    function weather(){
+        let prom = fetch("getweather/" + this.message)
+        prom.then(response => response.json())
+            .then(response => {
+                //this.list.push(response.response)
+            }) 
+    }
+    
+</script>
+<div id="app">
+    <p>{{ message }}</p>
+    <button v-on:click="Weather()">Reverse List</button>
+    <input v-model="message">
+    <span v-if="seen">Now you see me</span>
+    <ol>
+        <li v-for="item of list">
+            {{ item }}
+        </li>
+    </ol>
+</div>
